@@ -4,8 +4,8 @@ SRCDIR = src/
 PARSEDIR = parser/
 OBJ = cas
 
-all: $(SRCDIR)main.o $(SRCDIR)$(PARSEDIR)parser.o
-	$(CC) main.o parser.o -o $(OBJ)
+all: $(SRCDIR)main.o $(SRCDIR)$(PARSEDIR)parser.o $(SRCDIR)$(PARSEDIR)n_ary.o
+	$(CC) -g main.o parser.o n_ary.o -o $(OBJ)
 	@echo "BUILD COMPLETE"
 
 %.o: %.c
@@ -15,6 +15,3 @@ clean:
 	@echo "[Cleaning]"
 	rm -rf *.exe
 	rm -rf *.o
-
-exec:
-	./$(OBJ)
