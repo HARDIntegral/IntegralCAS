@@ -5,70 +5,89 @@
 
 #include "symbols.h"
 
-typedef struct TreeNode node_t;
-struct TreeNode {
-    int value;
-    OPERATOR symbol;
-    node_t** children;
-    int total_children;
-    int availableBranches;
+typedef struct tree_node node_t;
+typedef struct list_node node_l;
+
+void addElement(node_l** head, node_t** branch);
+
+struct tree_node {
+    int* value_ptr;
+    OPERATOR* oper_ptr;
+    node_l* head;
 };
 
-node_t* createTreeNode(int value, OPERATOR symbol, const int numInputs) {
-    node_t* node = (node_t*)malloc(sizeof(node_t));
-    if (node != NULL) {
-        node->value = value;
-        node->symbol = symbol;
-        node->children = (node_t**)malloc(sizeof(node_t) * numInputs);
-        node->total_children = numInputs;
-        node->availableBranches = numInputs;
-        return node;
-    } else {
-        printf("FATAL ERROR CREATING TREE NODE\n");
-        return NULL;
+struct list_node {
+    node_t* node;
+    node_l* next;
+};
+
+node_t* addBranch(node_t** root, int* value_ptr, OPERATOR* oper_ptr) {
+    node_t* branch = (node_t*)malloc(sizeof(node_t));
+    if (branch != NULL) {
+        branch->value_ptr = value_ptr;
+        branch->oper_ptr = oper_ptr;
+        branch->head = NULL;
+        if(root != NULL) {
+            addElement(&((*root)->head), &branch);
+        }
+        return branch;
     }
+    return NULL;
 }
 
-node_t* initTree(int value, OPERATOR symbol, const int numChildren) {
-    node_t* root = createTreeNode(value, symbol, numChildren);
-    if (root != NULL) {
-        return root;
-    } else {
-        printf("FATAL ERROR CREATING TREE\n");
-        return NULL;
-    }
-}
-
-void addBranch(node_t** root, int value, OPERATOR symbol, const int numInputs) {
-    if ((*root)->availableBranches > 0) {
-        (*root)->availableBranches--;
-        node_t* newBranch = createTreeNode(value, symbol, numInputs);
-        (*root)->children[(*root)->total_children - (*root)->availableBranches - 1] = newBranch;
-    }
+node_t* initTree(int* value_ptr, OPERATOR* oper) {
+    node_t* root = addBranch(NULL, value_ptr, oper);
+    return root;
 }
 
 void printTabs (int level) {
     for (int i = 0; i < level; i++) {
         printf("\t");
     }
-    printf("\n");
 }
 
 void printTreeRecursive(node_t* root, int level) {
     if (root != NULL) {
         printTabs(level);
-        if (root->value != INT_MIN)
-            printf("Value - %d\n", root->value);
-        else 
-            printf("Symbol - %d\n", root->symbol);
-        for (int i = 0; i < root->total_children - 1; i++) {
-            node_t* nextBranch = root->children[i];
-            printTreeRecursive(nextBranch, ++level);
+        if (root->value_ptr != NULL)
+            printf("Value - %d\n", *(root->value_ptr));
+        else if(root->oper_ptr != NULL)
+            printf("Operation - %d\n", *(root->oper_ptr));
+
+        node_l* tmp = root->head;
+        while (tmp != NULL) {
+            printTreeRecursive(tmp->node, level + 1);
+            tmp = tmp->next;
         }
+        printf("\n");
     }
 }
 
 void printTree(node_t* root) {
-    if (root != NULL)
-        printTreeRecursive(root, 0);
+    printTreeRecursive(root, 0);
+}
+
+node_l* createElement(node_t** branch) {
+    node_l* element = (node_l*)malloc(sizeof(node_l));
+    if (element != NULL) {
+        element->node = *branch;
+        element->next = NULL;
+        return element;
+    } else {
+        return NULL;
+    }
+}
+
+void addElement(node_l** head, node_t** branch) {
+    node_l* tmp = *head;
+    node_l* new = createElement(branch);
+    if (new == NULL)
+        return;
+    if (tmp == NULL)
+        *head = new;
+    else {
+        while (tmp->next != NULL)
+            tmp = tmp->next;
+        tmp->next = new;
+    }
 }

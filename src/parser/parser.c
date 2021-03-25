@@ -8,16 +8,17 @@
 
 // Just for testing the N-ary Tree
 void parse() {
-    node_t* root = initTree(INT_MIN, PLUS, 2);
-    if (root == NULL) {
-        printf("FATAL ERROR: fix dis\n");
-        return;
-    }
-    addBranch(&root, 1, NONE, 3);
-    addBranch(&root, 2, NONE, 0);
-    addBranch(&(root->children[0]), 4, NONE, 0);
-    addBranch(&(root->children[0]), 5, NONE, 0);
-    addBranch(&(root->children[0]), 6, NONE, 0);
-
-    printTree(&root);
+    int a = 1;
+    OPERATOR b = PLUS;
+    int c = 2;
+    int d = 3;
+    int e = 4;
+    int f = 5;
+    node_t* root = initTree(NULL, &b);
+    node_t* tmp = addBranch(&root, &a, NULL);
+    tmp = addBranch(&root, &c, NULL);
+    tmp = addBranch(&(root->head->node), &d, NULL);
+    tmp = addBranch(&(root->head->node), &e, NULL);
+    tmp = addBranch(&(root->head->node), &f, NULL);
+    printTree(root);
 }
