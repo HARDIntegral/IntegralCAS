@@ -59,7 +59,6 @@ void printTreeRecursive(node_t* root, int level) {
             printTreeRecursive(tmp->node, level + 1);
             tmp = tmp->next;
         }
-        printf("\n");
     }
 }
 
