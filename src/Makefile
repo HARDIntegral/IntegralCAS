@@ -5,8 +5,8 @@ OBJ = cas
 OBJDIR = ../build/obj/
 EXECDIR = build/executable/
 
-all: main.o $(PARSEDIR)parser.o $(PARSEDIR)binary.o
-	$(CC) -g main.o parser.o binary.o -o $(OBJ)
+all: main.o $(PARSEDIR)parser.o $(PARSEDIR)binary.o $(PARSEDIR)stack.o
+	$(CC) -g main.o parser.o binary.o stack.o -o $(OBJ)
 	@echo "BUILD COMPLETE"
 
 %.o: %.c

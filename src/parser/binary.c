@@ -3,8 +3,8 @@
 #include <malloc.h>
 
 #include "symbols.h"
-typedef struct node_t node_t;
 
+typedef struct node_t node_t;
 struct node_t{
     int* val_ptr;
     OPERATOR* oper_ptr;

@@ -1,7 +1,8 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
-typedef enum {
+typedef enum oper OPERATOR;
+enum oper {
     NONE,
     PLUS,
     MINUS,
@@ -20,6 +21,6 @@ typedef enum {
     FACT,
     MOD,
     ABS,
-}OPERATOR;
+};
 
 #endif // !SYMBOL_H
