@@ -7,7 +7,7 @@
 #include "../includes/symbols.h"
 #include "../includes/binary.h"
 #include "../includes/stack.h"
-#include "../includes/parse_list.h"
+#include "parse_list.h"
 #include "tokenizer.h"
 
 jmp_buf savebuf;
