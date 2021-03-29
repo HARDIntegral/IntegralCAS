@@ -9,9 +9,9 @@ enum oper {
     times,          // \times
     DIV,            // \div
     //circular
-    sin,            // \sin
-    cos,            // \cos
-    tan,            // \tan
+    SIN,            // \sin
+    COS,            // \cos
+    TAN,            // \tan
     arcsin,         // \arcsin
     arccos,         // \arcccos
     arctan,         // \arctan
@@ -22,9 +22,9 @@ enum oper {
     arcsec,         // \arcsec
     arccot,         // \arccot
     //hyperbolic
-    sinh,           // \sinh
-    cosh,           // \cosh
-    tanh,           // \tanh
+    SINH,           // \sinh
+    COSH,           // \cosh
+    TANH,           // \tanh
     arsinh,         // \operatorname{arsinh}
     arcosh,         // \operatorname{arcosh}
     artanh,         // \operatorname{artanh}
@@ -36,8 +36,8 @@ enum oper {
     arcoth,         // \operatorname{arcoth}
     //other
     frac,           // \frac{}{}
-    pow,            // ^{}
-    sqrt,            // \sqrt[]{}
+    POW,            // \^{}
+    SQRT,           // \sqrt[]{}
     //constanst
     vpi,            // \vpi
     eul             // \eul

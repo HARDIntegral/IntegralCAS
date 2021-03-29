@@ -12,6 +12,5 @@ struct node_t{
 
 node_t* addBranch(node_t** root, int* val_ptr, OPERATOR* oper_ptr);
 node_t* initTree(int* val_ptr, OPERATOR* oper_ptr);
-void printTree(node_t* root);
 
 #endif // !BINARY_H

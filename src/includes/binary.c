@@ -39,19 +39,3 @@ void printTabs (int level) {
         printf("\t");
     }
 }
-
-void printTreeRecursive(node_t* root, int level) {
-    if (root != NULL) {
-        printTabs(level);
-        if (root->val_ptr != NULL)
-            printf("Value - %d\n", *(root->val_ptr));
-        else if(root->oper_ptr != NULL)
-            printf("Operation - %d\n", *(root->oper_ptr));
-        printTreeRecursive(root->left_node, level + 1);
-        printTreeRecursive(root->right_node, level + 1);
-    }
-}
-
-void printTree(node_t* root) {
-    printTreeRecursive(root, 0);
-}
