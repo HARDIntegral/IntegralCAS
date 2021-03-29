@@ -4,8 +4,8 @@
 typedef enum oper OPERATOR;
 enum oper {
     //operations
-    PLUS,           // +
-    MINUS,          // -
+    PLUS,           // \plus
+    MINUS,          // \minus
     times,          // \times
     DIV,            // \div
     //circular
@@ -37,7 +37,10 @@ enum oper {
     //other
     frac,           // \frac{}{}
     pow,            // ^{}
-    sqrt            // \sqrt[]{}
+    sqrt,            // \sqrt[]{}
+    //constanst
+    vpi,            // \vpi
+    eul             // \eul
 };
 
 #endif // !SYMBOL_H
