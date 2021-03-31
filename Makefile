@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -g -Wall -Wextra
 SRCDIR = src/
 OBJDIR = build/obj/
 EXECDIR = build/executable/
