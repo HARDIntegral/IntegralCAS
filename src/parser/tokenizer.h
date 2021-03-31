@@ -9,5 +9,6 @@ struct token {
 
 token* tokenize(char* input);
 void printTokens(token* head);
+void clearTokens (token** head);
 
 #endif // !TOKEN_H

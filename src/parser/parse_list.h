@@ -12,5 +12,6 @@ struct node_pl {
 
 void addToParseList(node_pl** head, int* val_ptr, OPERATOR* oper_ptr);
 void printParseList(node_pl* head);
+void destroyParseList(node_pl** head);
 
 #endif // !PARSE_LIST_H

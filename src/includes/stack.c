@@ -46,3 +46,8 @@ void printStack(node_s** stack_head) {
         tmp = tmp->next;
     }
 }
+
+void clearStack(node_s** stack_head) {
+    // crude deallocator
+    
+}

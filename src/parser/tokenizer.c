@@ -46,3 +46,14 @@ void printTokens(token* head) {
         tmp = tmp->next;
     }
 }
+
+void clearTokens (token** head) {
+    // crude deallocator
+    token* tmp = *head;
+    while (*head != NULL) {
+        while (tmp->next != NULL)
+            tmp = tmp->next;
+        free(tmp);
+        tmp = NULL;
+    }
+}
