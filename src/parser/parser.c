@@ -20,16 +20,14 @@ int exception_value = 0;
 
 int parseInteger(char* input);
 
-void parse(char** input)
-{
+void parse(char** input) {
     token* token_list = tokenize(*input);
     token* tmp = token_list;
 
     // Shunting-Yard
     node_pl* token_itermediate = NULL;
     int integer_test = 0;
-    while (tmp != NULL)
-    {
+    while (tmp != NULL) {
         TRY {
             integer_test = parseInteger(tmp->part);
             addToParseList(&token_itermediate, &integer_test, NULL);
@@ -42,6 +40,9 @@ void parse(char** input)
         tmp = tmp->next;
     }
     printParseList(token_itermediate);
+    clearTokens(&tmp);
+    destroyParseList(&token_itermediate);
+    printf("PLS WORK\n");
 }
 
 int parseInteger(char* input) {

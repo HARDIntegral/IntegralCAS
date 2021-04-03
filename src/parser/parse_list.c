@@ -48,12 +48,12 @@ void printParseList(node_pl* head)
 }
 
 void destroyParseList(node_pl** head){
-    // crude brute force deallocator 
     node_pl* tmp = *head;
     while (*head != NULL) {
-        while (tmp->next != NULL)
-            tmp = tmp->next;
-        free(tmp);
-        tmp = NULL;
+        if (*head != NULL) {
+            free(*head);
+            *head = tmp->next;
+        }
+        *head = NULL;
     }
 }
