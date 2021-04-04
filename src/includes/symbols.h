@@ -6,7 +6,7 @@ enum oper {
     //operations
     PLUS,           // \plus
     MINUS,          // \minus
-    times,          // \times
+    MULT,          // \times
     DIV,            // \div
     //circular
     SIN,            // \sin
@@ -37,10 +37,10 @@ enum oper {
     //other
     frac,           // \frac{}{}
     POW,            // \^{}
-    SQRT,           // \sqrt[]{}
+    ROOT,           // \root[]{}
     //constanst
-    vpi,            // \vpi
-    eul             // \eul
+    vpi,            // \vpi         value of pi
+    veul             // \veul       value of e
 };
 
 #endif // !SYMBOL_H

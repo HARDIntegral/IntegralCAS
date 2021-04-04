@@ -50,7 +50,7 @@ do
         break
     else
         echo "OUTPUT:"
-        ../build/executable/./cas.exe $ARG
+        ../build/executable/./cas.out $ARG
     fi
 done
 

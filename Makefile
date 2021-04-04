@@ -5,7 +5,7 @@ OBJDIR = build/obj/
 EXECDIR = build/executable/
 SRCS = $(wildcard $(SRCDIR)*.c) $(wildcard $(SRCDIR)*/*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
-NAME = cas
+NAME = cas.out
 BUILD = $(EXECDIR)$(NAME)
 
 all: $(OBJS)

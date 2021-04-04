@@ -5,15 +5,13 @@
 #include "../includes/symbols.h"
 
 typedef struct node_pl node_pl;
-struct node_pl
-{
-    int *val_ptr;
-    OPERATOR *oper_ptr;
-    node_pl *next;
+struct node_pl {
+    int* val_ptr;
+    OPERATOR* oper_ptr;
+    node_pl* next;
 };
 
-node_pl* createParseListNode(int* val_ptr, OPERATOR* oper_ptr)
-{
+node_pl* createParseListNode(int* val_ptr, OPERATOR* oper_ptr) {
     node_pl* new = (node_pl*)malloc(sizeof(node_pl));
     new->val_ptr = val_ptr;
     new->oper_ptr = oper_ptr;
@@ -21,8 +19,7 @@ node_pl* createParseListNode(int* val_ptr, OPERATOR* oper_ptr)
     return new;
 }
 
-void addToParseList(node_pl** head, int* val_ptr, OPERATOR* oper_ptr)
-{
+void addToParseList(node_pl** head, int* val_ptr, OPERATOR* oper_ptr) {
     node_pl* tmp = *head;
     node_pl* new = createParseListNode(val_ptr, oper_ptr);
     if (tmp == NULL)
@@ -34,8 +31,7 @@ void addToParseList(node_pl** head, int* val_ptr, OPERATOR* oper_ptr)
     }
 }
 
-void printParseList(node_pl* head)
-{
+void printParseList(node_pl* head) {
     node_pl* tmp = head;
     while (tmp != NULL){
         if (tmp->val_ptr != NULL)
@@ -47,7 +43,7 @@ void printParseList(node_pl* head)
     printf("\n");
 }
 
-void destroyParseList(node_pl** head){
+void destroyParseList(node_pl** head) {
     node_pl* tmp = *head;
     while (*head != NULL) {
         if (*head != NULL) {
