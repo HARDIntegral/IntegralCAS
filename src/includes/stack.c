@@ -2,52 +2,22 @@
 #include <stdio.h>
 #include <malloc.h>
 
-#include "symbols.h"
+#include "list.h"
 
-typedef struct node_s node_s;
-struct node_s {
-    int* val_ptr;
-    OPERATOR* oper_ptr;
-    node_s* next;
-};
-
-node_s* addStackNode(int* val_ptr, OPERATOR* oper_ptr) {
-    node_s* node = (node_s*)malloc(sizeof(node_s));
-    node->val_ptr = val_ptr;
-    node->oper_ptr = oper_ptr;
-    node->next = NULL;
-    return node;
+void push(node_l** stack_base, void* data, TYPE type) {
+    pushNode(stack_base, data, type);
 }
 
-void push(node_s** stack_head, int* val_ptr, OPERATOR* oper_ptr) {
-    node_s* new_node = addStackNode(val_ptr, oper_ptr);
-    new_node->next = *stack_head;
-    *stack_head = new_node;
-}
-
-node_s* pop(node_s** stack_head) {
-    node_s* tmp = *stack_head;
-    *stack_head = (*stack_head)->next;
+node_l* pop(node_l* stack_base) {
+    node_l* tmp = stack_base;
+    stack_base = getNextNode(stack_base);
     return tmp;
 }
 
-void destroy(node_s** node) {
-    free(*node);
-    *node = NULL;
+void destroyStack(node_l** stack_base) {
+    destroyList(stack_base);
 }
 
-void printStack(node_s** stack_head) {
-    node_s* tmp = *stack_head;
-    while (tmp != NULL) {
-        if (tmp->val_ptr != NULL)
-            printf("Value - %d\n", *(tmp->val_ptr));
-        else if (tmp->oper_ptr != NULL)
-            printf("Operator - %d\n", *(tmp->oper_ptr));
-        tmp = tmp->next;
-    }
-}
-
-void clearStack(node_s** stack_head) {
-    // crude deallocator
-    
+void printStack(node_l** stack_base) {
+    printList(stack_base);
 }

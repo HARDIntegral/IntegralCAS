@@ -3,57 +3,30 @@
 #include <malloc.h>
 #include <string.h>
 
-#include "../includes/symbols.h"
-#include "../includes/binary.h"
-#include "../includes/stack.h"
+#include "../includes/list.h"
 
-typedef struct token token;
-struct token {
-    char* part;
-    token* next;
-};
-
-token* addToken(char *str) {
-    token* new = (token*)malloc(sizeof(token));
-    new->part = str;
-    new->next = NULL;
-    return new;
+void addToken(node_l** token_head, const char* token) {
+    appendListNode(token_head, &token, CHAR);
 }
 
-token* tokenize(char* input) {
-    token* head = NULL;
-    token* tok = NULL;
+node_l* tokenize(char* input) {
+    node_l* token_head = NULL;
     char* str_token = strtok(input, "\{} ");
     while (str_token != NULL) {
-        tok = addToken(str_token);
-        if (head == NULL)
-            head = tok;
-        else {
-            token* tmp = head;
-            while (tmp->next != NULL)
-                tmp = tmp->next;
-            tmp->next = tok;
-        }
+        addToken(&token_head, str_token);
         str_token = strtok(NULL, "\{} ");
     }
-    return head;
+    return token_head;
 }
 
-void printTokens(token* head) {
-    token* tmp = head;
-    while (tmp != NULL) {
-        printf("Token - %s\n", tmp->part);
-        tmp = tmp->next;
-    }
+void* returnToken(node_l* current_node) {
+    return returnValue(current_node);
 }
 
-void clearTokens (token** head) {
-    token* tmp = *head;
-    while (*head != NULL) {
-        if (*head != NULL) {
-            free(*head);
-            *head = tmp->next;
-        }
-        *head = NULL;
-    }
+void clearTokens(node_l** token_head) {
+    destroyList(token_head);
+}
+
+void printTokens(node_l** token_head) {
+    printList(token_head);
 }

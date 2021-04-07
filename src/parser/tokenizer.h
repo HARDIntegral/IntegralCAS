@@ -1,14 +1,11 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-typedef struct token token;
-struct token {
-    char* part;
-    token* next;
-};
+#include "../includes/list.h"
 
-token* tokenize(char* input);
-void printTokens(token* head);
-void clearTokens (token** head);
+node_l* tokenize(char* input);
+void* returnToken(node_l* current_node);
+void clearTokens(node_l** token_head);
+void printTokens(node_l** token_head);
 
 #endif // !TOKEN_H
