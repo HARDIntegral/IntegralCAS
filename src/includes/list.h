@@ -1,14 +1,23 @@
 #ifndef LIST_H
 #define LIST_H
 
-typedef enum { INT, CHAR, OPER } TYPE;
-typedef struct node_l node_l;
+typedef struct node_l {
+  void *data;
+  struct node_l *next;
+  struct node_l *prev;
+} node_l;
 
-void pushNode(node_l **head, void *data, TYPE type);
-void appendListNode(node_l **head, void *data, TYPE type);
-node_l *getNextNode(node_l *current_node);
-void *returnValue(node_l *current_node);
-void destroyList(node_l **head);
-void printList(node_l **head);
+typedef struct list {
+  int size;
+  node_l *head;
+  node_l *tail;
+} LIST;
+
+LIST *generateList();
+
+int push(LIST *list, void *data);
+int append(LIST *list, void *data);
+void *pop(LIST *list);
+void *snip(LIST *list);
 
 #endif // LIST_H
