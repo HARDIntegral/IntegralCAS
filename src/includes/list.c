@@ -4,9 +4,6 @@
 
 #include "list.h"
 
-#define SUCCESS 1
-#define FAILURE 0
-
 node_l *retriveNode(LIST *list, int position);
 
 // Initialize a new list

@@ -1,6 +1,9 @@
 #ifndef LIST_H
 #define LIST_H
 
+#define SUCCESS 1
+#define FAILURE 0
+
 typedef struct node_l {
   void *data;
   struct node_l *next;

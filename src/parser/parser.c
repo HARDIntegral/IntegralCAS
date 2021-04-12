@@ -5,9 +5,12 @@
 #include <string.h>
 
 //#include "../includes/binary.h"
-#include "../includes/stack.h"
+#include "../includes/list.h"
+#include "../includes/list_helpers.h"
 #include "../includes/symbols.h"
-#include "tokenizer.h"
+
+#define TRUE 1
+#define FALSE 0
 
 jmp_buf savebuf;
 int exception_value = 0;
@@ -20,6 +23,7 @@ int exception_value = 0;
 int parseInteger(char *input);
 
 void parse(char *input) {
+  /*
   node_l *token_list = tokenize(input);
   printTokens(&token_list);
   node_l *tmp_token = token_list;
@@ -45,6 +49,28 @@ void parse(char *input) {
   printf("Len token_intermediate - %d\n", getLength(&token_intermediate));
   clearTokens(&token_list);
   destroyList(&token_intermediate);
+  */
+  printf("%s\n", input);
+
+  LIST *test_list = generateList();
+
+  char *a = "cgb";
+  char *b = "ytr";
+  char *c = "fgr";
+  char *d = "fds";
+
+  if (append(test_list, &a) == FAILURE)
+    printf("FAILURE\n");
+  if (append(test_list, &b) == FAILURE)
+    printf("FAILURE\n");
+  if (append(test_list, &c) == FAILURE)
+    printf("FAILURE\n");
+  if (append(test_list, &d) == FAILURE)
+    printf("FAILURE\n");
+
+  printf("length - %d\n", length(test_list));
+
+  iterate(test_list, printString, FALSE);
 }
 
 int parseInteger(char *input) {
