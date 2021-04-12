@@ -13,11 +13,28 @@ typedef struct list {
   node_l *tail;
 } LIST;
 
+// Generate a list
 LIST *generateList();
 
+// Add values to the list
 int push(LIST *list, void *data);
 int append(LIST *list, void *data);
+
+// Non-destructive getters
+void *getHead(LIST *list);
+void *getTail(LIST *list);
+void *retriveData(LIST *list, int position);
+
+// Destructive getters
 void *pop(LIST *list);
 void *snip(LIST *list);
+void *removeNode(LIST *list, int position);
+
+// Iterate through the list
+void iterate(LIST *list, void (*fn)(void *), int reverse);
+int length(LIST *list);
+
+// Free memory
+int destroyList(LIST *list);
 
 #endif // LIST_H
