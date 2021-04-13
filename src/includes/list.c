@@ -8,63 +8,57 @@ node_l *retriveNode(LIST *list, int position);
 // Initialize a new list
 LIST *generateList() {
   LIST *new_list = (LIST *)malloc(sizeof(LIST));
-  if (new_list != NULL) {
-    new_list->size = 0;
-    new_list->head = NULL;
-    new_list->tail = NULL;
-    return new_list;
-  } else {
+  if (new_list == NULL)
     return NULL;
-  }
+  new_list->size = 0;
+  new_list->head = NULL;
+  new_list->tail = NULL;
+  return new_list;
 }
 
 // Initialize a new node
 node_l *generateNode(void *data) {
   node_l *new_node = (node_l *)malloc(sizeof(node_l));
-  if (new_node != NULL) {
-    new_node->data = data;
-    new_node->next = NULL;
-    new_node->prev = NULL;
-    return new_node;
-  } else {
+  if (new_node == NULL)
     return NULL;
-  }
+  new_node->data = data;
+  new_node->next = NULL;
+  new_node->prev = NULL;
+  return new_node;
 }
 
 // Push a node to the beginning of a list
 int push(LIST *list, void *data) {
   node_l *new_node = generateNode(data);
 
-  if (new_node != NULL) {
-    if (list->size == 0)
-      list->tail = new_node;
-    else {
-      list->head->prev = new_node;
-      new_node->next = list->head;
-    }
-    list->head = new_node;
-    list->size++;
-    return SUCCESS;
-  } else
+  if (new_node == NULL)
     return FAILURE;
+  if (list->size == 0)
+    list->tail = new_node;
+  else {
+    list->head->prev = new_node;
+    new_node->next = list->head;
+  }
+  list->head = new_node;
+  list->size++;
+  return SUCCESS;
 }
 
 // Append a node to the end of a list
 int append(LIST *list, void *data) {
   node_l *new_node = generateNode(data);
 
-  if (new_node != NULL) {
-    if (list->size == 0)
-      list->head = new_node;
-    else {
-      list->tail->next = new_node;
-      new_node->prev = list->tail;
-    }
-    list->tail = new_node;
-    list->size++;
-    return SUCCESS;
-  } else
+  if (new_node == NULL)
     return FAILURE;
+  if (list->size == 0)
+    list->head = new_node;
+  else {
+    list->tail->next = new_node;
+    new_node->prev = list->tail;
+  }
+  list->tail = new_node;
+  list->size++;
+  return SUCCESS;
 }
 
 // Returns the data from the head of the list
@@ -120,24 +114,23 @@ void *snip(LIST *list) {
 void *removeNode(LIST *list, int position) {
   node_l *current_node = retriveNode(list, position);
 
-  if (current_node != NULL) {
-    if (current_node->prev == NULL)
-      list->head = current_node->next;
-    else
-      current_node->prev->next = current_node->next;
-
-    if (current_node->next == NULL)
-      list->tail = current_node->prev;
-    else
-      current_node->next->prev = current_node->prev;
-
-    void *data = current_node->data;
-
-    free(current_node);
-    current_node = NULL;
-    return data;
-  } else
+  if (current_node == NULL)
     return NULL;
+  if (current_node->prev == NULL)
+    list->head = current_node->next;
+  else
+    current_node->prev->next = current_node->next;
+
+  if (current_node->next == NULL)
+    list->tail = current_node->prev;
+  else
+    current_node->next->prev = current_node->prev;
+
+  void *data = current_node->data;
+
+  free(current_node);
+  current_node = NULL;
+  return data;
 }
 
 // Retrievs the data from a node in a list given the position
@@ -182,30 +175,29 @@ node_l *retriveNode(LIST *list, int position) {
 
 // Iterate through a list with a given function
 void iterate(LIST *list, void (*fn)(void *), int reverse) {
-  if (list != NULL) {
-    node_l *current_node = (reverse ? list->tail : list->head);
+  if (list == NULL)
+    return;
+  node_l *current_node = (reverse ? list->tail : list->head);
 
-    while (current_node != NULL) {
-      (*fn)(current_node->data);
-      current_node = (reverse ? (current_node->prev) : (current_node->next));
-    }
+  while (current_node != NULL) {
+    (*fn)(current_node->data);
+    current_node = (reverse ? (current_node->prev) : (current_node->next));
   }
 }
 
 // Returns the length of the list
 int length(LIST *list) {
-  if (list != NULL) {
-    node_l *current_node = list->head;
-    int counter = 0;
-
-    while (current_node != NULL) {
-      counter++;
-      current_node = current_node->next;
-    }
-
-    return counter;
-  } else
+  if (list == NULL)
     return -1;
+  node_l *current_node = list->head;
+  int counter = 0;
+
+  while (current_node != NULL) {
+    counter++;
+    current_node = current_node->next;
+  }
+
+  return counter;
 }
 
 // Destroys the list and frees its memory
