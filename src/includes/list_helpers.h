@@ -3,5 +3,6 @@
 
 void printString(void *input);
 void printInteger(void *input);
+void printOperator(void *input);
 
 #endif // LIST_HELPERS_H

@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../includes/list.h"
+#include "../includes/list_helpers.h"
+#include "../includes/symbols.h"
 #include "parse_list.h"
 
 #define SUCCESS 1
@@ -28,8 +31,8 @@ parse_list *generateParseList() {
   new_type_list->head = NULL;
   new_type_list->tail = NULL;
 
-  new_parse_list->data_list = &new_data_list;
-  new_parse_list->type_list = &new_type_list;
+  new_parse_list->data_list = new_data_list;
+  new_parse_list->type_list = new_type_list;
 
   return new_parse_list;
 }
@@ -42,8 +45,8 @@ int pushParseList(parse_list *list, void *data, TYPE _type) {
   if (list->type_list == NULL)
     return FAILURE;
 
-  push(*(list->data_list), data);
-  push(*(list->type_list), &_type);
+  push(list->data_list, data);
+  push(list->type_list, &_type);
 
   return SUCCESS;
 }
@@ -56,8 +59,8 @@ int appendParseList(parse_list *list, void *data, TYPE _type) {
   if (list->type_list == NULL)
     return FAILURE;
 
-  append(*(list->data_list), data);
-  append(*(list->type_list), &_type);
+  append(list->data_list, data);
+  append(list->type_list, &_type);
 
   return SUCCESS;
 }
@@ -66,7 +69,23 @@ void printParseList(parse_list *list) {
   if (list == NULL)
     return;
 
-  // TODO: add the print capabilities of this fucntion
+  node_l *tmp_data = list->data_list->head;
+  node_l *tmp_type = list->type_list->head;
+
+  while (tmp_data != NULL && tmp_type != NULL) {
+    switch (*(TYPE *)(tmp_type->data)) {
+    case (INT):
+      printf("%d ", *(int *)(tmp_data->data));
+      break;
+    case (CHAR):
+      printf("%s ", (char *)(tmp_data->data));
+      break;
+    case (OPER):
+      printf("%d ", *(OPERATOR *)(tmp_data->data));
+    }
+    tmp_data = tmp_data->next;
+    tmp_type = tmp_type->next;
+  }
 }
 
 int destroyParseList(parse_list *list) {
@@ -77,9 +96,9 @@ int destroyParseList(parse_list *list) {
   if (list->type_list == NULL)
     return FAILURE;
 
-  if (destroyList(*(list->data_list)) == FAILURE)
+  if (destroyList(list->data_list) == FAILURE)
     return FAILURE;
-  if (destroyList(*(list->type_list)) == FAILURE)
+  if (destroyList(list->type_list) == FAILURE)
     return FAILURE;
 
   free(list);
