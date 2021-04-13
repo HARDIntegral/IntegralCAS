@@ -8,6 +8,7 @@
 #include "../includes/list.h"
 #include "../includes/list_helpers.h"
 #include "../includes/symbols.h"
+#include "tokenizer.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -23,54 +24,27 @@ int exception_value = 0;
 int parseInteger(char *input);
 
 void parse(char *input) {
-  /*
-  node_l *token_list = tokenize(input);
-  printTokens(&token_list);
-  node_l *tmp_token = token_list;
+  LIST *token_list = tokenize(input);
+  iterate(token_list, printString, FALSE);
 
   // Shunting-Yard
-  node_l *token_intermediate = NULL;
-  int integer_test = 0;
-  while (tmp_token != NULL) {
+  LIST *token_intermediate = generateList();
+  void *data = pop(token_list);
+  while (data != NULL) {
     TRY {
-      integer_test = parseInteger((char *)(returnToken(tmp_token)));
-      appendListNode(&token_intermediate, &integer_test, INT);
+      int integer_test = parseInteger((char *)data);
+      append(token_intermediate, &integer_test);
     }
     CATCH(NOTANUMBEREXCEPTION) {
       OPERATOR OPER = PLUS;
       OPERATOR tmpOPER = OPER;
-      appendListNode(&token_intermediate, &tmpOPER, SYMBOL);
+      append(token_intermediate, &tmpOPER);
     }
     CATCHALL { printf("FATAL ERROR\n"); }
-    tmp_token = getNextNode(tmp_token);
+    data = pop(token_list);
   }
-  printList(&token_intermediate);
-  printf("Len token_list - %d\n", getLength(&token_list));
-  printf("Len token_intermediate - %d\n", getLength(&token_intermediate));
-  clearTokens(&token_list);
-  destroyList(&token_intermediate);
-  */
-  printf("%s\n", input);
-
-  LIST *test_list = generateList();
-
-  char *a = "cgb";
-  char *b = "ytr";
-  char *c = "fgr";
-  char *d = "fds";
-
-  if (append(test_list, &a) == FAILURE)
-    printf("FAILURE\n");
-  if (append(test_list, &b) == FAILURE)
-    printf("FAILURE\n");
-  if (append(test_list, &c) == FAILURE)
-    printf("FAILURE\n");
-  if (append(test_list, &d) == FAILURE)
-    printf("FAILURE\n");
-
-  printf("length - %d\n", length(test_list));
-
-  iterate(test_list, printString, FALSE);
+  if (destroyList(token_list) == FAILURE)
+    printf("FAILURE DEALLOCATING LIST");
 }
 
 int parseInteger(char *input) {

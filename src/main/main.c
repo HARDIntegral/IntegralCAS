@@ -12,5 +12,5 @@ int main(int argc, char **argv) {
     printf("TOO MANY ARGUMENTS\n");
     return 0;
   }
-  parse(&argv[1]);
+  parse(argv[1]);
 }
