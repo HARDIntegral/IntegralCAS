@@ -14,8 +14,8 @@ typedef struct parse_list {
 parse_list *generateParseList();
 
 // Add values to the list
-int pushParseList(parse_list *list, void *data, TYPE _type);
-int appendParseList(parse_list *list, void *data, TYPE _type);
+int pushParseList(parse_list *list, void *data, TYPE *_type);
+int appendParseList(parse_list *list, void *data, TYPE *_type);
 
 // Print contents of the list
 void printParseList(parse_list *list);

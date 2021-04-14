@@ -37,7 +37,7 @@ parse_list *generateParseList() {
   return new_parse_list;
 }
 
-int pushParseList(parse_list *list, void *data, TYPE _type) {
+int pushParseList(parse_list *list, void *data, TYPE *_type) {
   if (list == NULL)
     return FAILURE;
   if (list->data_list == NULL)
@@ -46,12 +46,12 @@ int pushParseList(parse_list *list, void *data, TYPE _type) {
     return FAILURE;
 
   push(list->data_list, data);
-  push(list->type_list, &_type);
+  push(list->type_list, _type);
 
   return SUCCESS;
 }
 
-int appendParseList(parse_list *list, void *data, TYPE _type) {
+int appendParseList(parse_list *list, void *data, TYPE *_type) {
   if (list == NULL)
     return FAILURE;
   if (list->data_list == NULL)
@@ -60,7 +60,7 @@ int appendParseList(parse_list *list, void *data, TYPE _type) {
     return FAILURE;
 
   append(list->data_list, data);
-  append(list->type_list, &_type);
+  append(list->type_list, _type);
 
   return SUCCESS;
 }
@@ -75,13 +75,13 @@ void printParseList(parse_list *list) {
   while (tmp_data != NULL && tmp_type != NULL) {
     switch (*(TYPE *)(tmp_type->data)) {
     case (INT):
-      printf("%d ", *(int *)(tmp_data->data));
+      printf("i%d ", *(int *)(tmp_data->data));
       break;
     case (CHAR):
       printf("%s ", (char *)(tmp_data->data));
       break;
     case (OPER):
-      printf("%d ", *(OPERATOR *)(tmp_data->data));
+      printf("o%d ", *(OPERATOR *)(tmp_data->data));
     }
     tmp_data = tmp_data->next;
     tmp_type = tmp_type->next;

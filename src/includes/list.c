@@ -205,7 +205,7 @@ int destroyList(LIST *list) {
   if (list == NULL)
     return FAILURE;
   node_l *head = list->head;
-  node_l *tmp;
+  node_l *tmp = head;
 
   while (tmp != NULL) {
     tmp = head->next;
