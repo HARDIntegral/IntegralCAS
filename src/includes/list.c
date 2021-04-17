@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "list.h"
+#include "list_helpers.h"
 
 node_l *retriveNode(LIST *list, int position);
 
@@ -47,6 +48,7 @@ int push(LIST *list, void *data) {
 
 // Append a node to the end of a list
 int append(LIST *list, void *data) {
+  //printOperator(data);
   node_l *new_node = generateNode(data);
   if (new_node == NULL)
     return FAILURE;

@@ -12,16 +12,20 @@
 
 parse_list *generateParseList() {
   parse_list *new_parse_list = (parse_list *)malloc(sizeof(parse_list));
-
   LIST *new_data_list = (LIST *)malloc(sizeof(LIST));
   LIST *new_type_list = (LIST *)malloc(sizeof(LIST));
 
-  if (new_parse_list == NULL)
+  if (new_parse_list == NULL || new_data_list == NULL ||
+      new_type_list == NULL) {
+    free(new_parse_list);
+    free(new_data_list);
+    free(new_type_list);
+    new_parse_list = NULL;
+    new_data_list = NULL;
+    new_type_list = NULL;
+
     return NULL;
-  if (new_data_list == NULL)
-    return NULL;
-  if (new_type_list == NULL)
-    return NULL;
+  }
 
   new_data_list->size = 0;
   new_data_list->head = NULL;
@@ -63,6 +67,22 @@ int appendParseList(parse_list *list, void *data, TYPE *_type) {
   append(list->type_list, _type);
 
   return SUCCESS;
+}
+
+void popParseList(parse_list *list, void *data_holder, TYPE *type_holder) {
+  // TODO: why didn't I do this before knowing that I will need to
+  data_holder = list->data_list->head->data;
+  type_holder = (TYPE *)(list->type_list->head->data);
+
+  node_l *tmp_data_node = list->data_list->head;
+  node_l *tmp_type_node = list->type_list->head;
+  list->data_list->head = list->data_list->head->next;
+  list->type_list->head = list->type_list->head->next;
+
+  free(tmp_data_node);
+  free(tmp_type_node);
+  tmp_data_node = NULL;
+  tmp_type_node = NULL;
 }
 
 void printParseList(parse_list *list) {

@@ -17,6 +17,9 @@ parse_list *generateParseList();
 int pushParseList(parse_list *list, void *data, TYPE *_type);
 int appendParseList(parse_list *list, void *data, TYPE *_type);
 
+// Destructive getters
+void popParseList(parse_list *list, void *data, TYPE *type_holder);
+
 // Print contents of the list
 void printParseList(parse_list *list);
 

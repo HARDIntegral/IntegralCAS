@@ -35,9 +35,11 @@ enum oper {
   arsech, // \operatorname{arsech}
   arcoth, // \operatorname{arcoth}
   // other
-  frac, // \frac{}{}
-  POW,  // \^{}
-  ROOT, // \root[]{}
+  LEFT,  // \left|
+  RIGHT, // \right|
+  frac,  // \frac{}{}
+  POW,   // \^{}
+  ROOT,  // \root[]{}
   // constanst
   vpi, // \vpi         value of pi
   veul // \veul       value of e
